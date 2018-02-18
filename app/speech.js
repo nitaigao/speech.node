@@ -1,7 +1,7 @@
 import wav from 'wav'
 import EventEmitter from 'events'
 
-const CAPTURE_PREV_FRAMES = 4
+const CAPTURE_PREV_FRAMES = 3
 const MAX_FRAMES_BEFORE_RESET = 100
 const SILENCE_FRAMES_BEFORE_CAPTURE = 7
 
@@ -36,8 +36,7 @@ class Speech extends EventEmitter {
       console.log(`Start: ${startIndex}, End: ${stopIndex}`)
 
       let frames = this.ring.slice(startIndex, stopIndex)
-      const fileName = this.writeToBuffer(frames)
-      this.emit('command', fileName)
+      this.writeToBuffer(frames)
 
       this.reset()
       this.writing = false
@@ -74,8 +73,12 @@ class Speech extends EventEmitter {
       speechBuffer.write(frame)
     }
 
+    speechBuffer.on('finish', () => {
+      console.log('finish')
+      this.emit('command', speechBuffer.path)
+    })
+
     speechBuffer.end()
-    return speechBuffer.path
   }
 }
 

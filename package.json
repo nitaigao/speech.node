@@ -15,7 +15,6 @@
     "babel-eslint": "^8.2.1",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.18.0",
-    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.1",
@@ -23,7 +22,8 @@
     "prettier": "^1.10.2"
   },
   "scripts": {
-    "dev": "nodemon -x 'DEBUG=* node index.js'"
+    "start": "node index.js",
+    "dev": "nodemon -x 'DEBUG=speech node index.js'"
   },
   "author": "",
   "license": "ISC"

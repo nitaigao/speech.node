@@ -9,7 +9,8 @@ import {
 
 const mic = Microphone({
   rate: '16000',
-  channels: '1'
+  channels: '1',
+  fileType: 'wav'
 })
 
 const micStream = mic.getAudioStream()
