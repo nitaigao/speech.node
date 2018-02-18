@@ -1,6 +1,9 @@
 import Microphone from 'mic'
+import wav from 'wav'
+import fs from 'fs'
 import Speech from './speech'
 import { publish } from './pubsub'
+import LowPass from './lowpass'
 
 import {
   Detector,
@@ -20,7 +23,6 @@ const models = new Models()
 
 speech.on('command', (file) => {
   publish(file)
-  console.log(file)
 })
 
 models.add({
@@ -52,5 +54,22 @@ detector.on('hotword', (index, hotword, buffer) => {
   speech.trigger()
 })
 
-micStream.pipe(detector)
+const format = {
+  audioFormat: 1,
+  endianness: 'LE',
+  channels: 1,
+  sampleRate: 16000,
+  byteRate: 32000,
+  blockAlign: 2,
+  bitDepth: 16,
+  signed: true,
+  lowWaterMark: 0,
+  highWaterMark: 0
+}
+
+const lowPass = LowPass({ format })
+
+micStream.pipe(lowPass)
+lowPass.pipe(detector)
+
 mic.start()

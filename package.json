@@ -6,9 +6,11 @@
   "dependencies": {
     "babel-register": "^6.26.0",
     "debug": "^3.1.0",
+    "lowpass": "^1.5.2",
     "mic": "^2.1.2",
     "redis": "^2.8.0",
     "snowboy": "^1.2.0",
+    "speaker": "^0.4.0",
     "wav": "^1.0.1"
   },
   "devDependencies": {
